@@ -28,7 +28,10 @@ Status showData(struct Node *);
 Status removeLinkedList(struct Node *);
 //bubble sort
 Status sort(struct Node *);
-
+//insert a node into a linkedlist which has been created
+Status insert(struct Node *, int, double);
+//get the data of a specific position of a linkedlist which has been created
+double getData(struct Node *, int); 
 
 int main(void) {
 
@@ -45,10 +48,26 @@ int main(void) {
     else {printf("input failed!\n");}
     if (showData(pHead)) {printf("show data succeeded!\n");}
     else {printf("show data failed!\n");}
+    double insertData;
+    int pos;
+    printf("Please enter the data you want to insert:");
+    scanf("%lf", &insertData);
+    printf("Please enter the pos of the new data(start from 0):");
+    scanf("%d", &pos);
+    if (insert(pHead, pos, insertData)) {printf("insert succeeded!\n");}
+    else {printf("insert failed!\n");}
+    len = getLen(pHead);
+    printf("Now the number of nodes is: %d\n", len);
+    if (showData(pHead)) {printf("show data succeeded!\n");}
+    else {printf("show data failed!\n");}
     if (sort(pHead)) {printf("sort succeeded!\n");}
     else {printf("sort failed!\n");}
     if (showData(pHead)) {printf("show sorted data succeeded!\n");}
     else {printf("show sorted data failed!\n");}
+    printf("Please enter the pos of the data you want to get(start from 0):");
+    scanf("%d", &pos);
+    if (getData(pHead, pos)) {printf("The data is:%g\n", getData(pHead, pos));}
+    else {printf("get data failed!\n");}
     if (removeLinkedList(pHead)) {printf("remove succeeded!\n");}
     else {printf("remove failed!\n");}
     return 0;
@@ -164,3 +183,41 @@ Status sort(struct Node * pHead) {
     }
     return OK; 
 } 
+
+//insert a node into a linkedlist which has been created
+Status insert(struct Node * pHead, int pos, double data) {
+
+    if (pos < 0) {return ERROR;}
+    if (!(pHead -> ptr)) {return ERROR;}
+    int len = getLen(pHead);
+    if (pos > len) {return ERROR;}
+    struct Node * pTail = pHead -> ptr;
+    struct Node * newNode = (struct Node *)malloc(sizeof(struct Node));
+    newNode -> ptr = NULL;
+    newNode -> data = data;
+    if (pos == 0) {
+        pHead -> ptr = newNode;  
+        newNode -> ptr = pTail;
+        return OK;
+    }
+    for (int i = 0; i < pos - 1; i++) {
+        pTail = pTail -> ptr;
+    }
+    newNode -> ptr = pTail -> ptr;
+    pTail -> ptr = newNode;
+    return OK;
+}
+
+//get the data of a specific position of a linkedlish which has been created
+double getData(struct Node * pHead, int pos) {
+    
+    if (!(pHead -> ptr)) {return 0;}
+    if (pos < 0) {return 0;}
+    struct Node * pTail = pHead -> ptr;
+    int len = getLen(pHead);
+    if (pos > (len - 1)) {return 0;}
+    for (int i = 0; i < pos; i++) {
+        pTail = pTail -> ptr;
+    }
+    return pTail -> data;
+}
