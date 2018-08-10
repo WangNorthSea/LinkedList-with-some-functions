@@ -68,8 +68,7 @@ int main(void) {
     else {printf("show sorted data failed!\n");}
     printf("Please enter the position of the data you want to get(start from 0):");
     scanf("%d", &pos);
-    if (getData(pHead, pos)) {printf("The data is:%g\n", getData(pHead, pos));}
-    else {printf("get data failed!\n");}
+    printf("The data is:%g\n", getData(pHead, pos));
     printf("Please enter the position of the node you want to remove(start from 0):");
     scanf("%d", &pos);
     if (removeData(pHead, pos)) {printf("remove data succeeded!\n");}
