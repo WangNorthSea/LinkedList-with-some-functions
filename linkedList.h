@@ -1,7 +1,7 @@
 
 //
-//  LinkedList.h
-//  LinkedList
+//  linkedList.h
+//  linkedList
 //
 //  Created by 王浩宇 on 2018/8/21.
 //  Copyright © 2018 UCAS Developers. All rights reserved.
